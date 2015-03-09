@@ -62,7 +62,8 @@ class nodejs (
 
 	exec { 'download-nodejs':
 		command => "wget $downlaod_url",
-		cwd => $download_dir,
+		cwd     => $download_dir,
+    creates => "$download_dir/$node_filename"
 	} ->
 
 	exec { 'install-nodejs':
