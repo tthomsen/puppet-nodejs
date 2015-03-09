@@ -66,6 +66,12 @@ class nodejs (
     creates => "$download_dir/$node_filename"
 	} ->
 
+  exec { 'extract-nodejs':
+		command => "tar zxvf $download_dir/$node_filename -C $download_dir --strip-components=1",
+		cwd     => $download_dir,
+    creates => "$download_dir/README.md"
+	} ->
+
 	exec { 'install-nodejs':
 		command => './configure && make && make install',
 		cwd => $download_dir,
