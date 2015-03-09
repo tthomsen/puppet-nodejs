@@ -69,12 +69,13 @@ class nodejs (
   exec { 'extract-nodejs':
 		command => "tar zxvf $download_dir/$node_filename -C $download_dir --strip-components=1",
 		cwd     => $download_dir,
-    creates => "$download_dir/README.md"
+    creates => "$download_dir/Makefile"
 	} ->
 
 	exec { 'install-nodejs':
 		command => './configure && make && make install',
 		cwd => $download_dir,
+    path => "$download_dir:/tmp/node-v0.10.25:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
     timeout => 1800,
 	}
 }
